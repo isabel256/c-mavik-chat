@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#4CAF50" />
+  <title>Asistente FAQ</title>
+  <style>
+    .asistente {
+      color: rgb(22, 22, 93);
+    }
+    .btn-chat {
+      border-radius: 5px;
+      padding: 8px 20px;
+      border: none;
+      color: #fff;
+      background-color: blue;
+      cursor: pointer;
+    }
+    body {
+      font-family: sans-serif;
+      padding: 20px;
+    }
+    #chat {
+      border: 1px solid #ccc;
+      padding: 10px;
+      max-height: 300px;
+      overflow-y: auto;
+      margin-bottom: 10px;
+    }
+    .user,
+    .bot {
+      margin-bottom: 10px;
+    }
+    .user {
+      color: blue;
+    }
+    .bot {
+      color: green;
+    }
+    input[type="text"] {
+      width: 80%;
+      padding: 10px;
+    }
+    button {
+      padding: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h2 class="asistente">Asistente de Preguntas</h2>
+  <div id="chat"></div>
+  <input
+    class="input"
+    type="text"
+    id="userInput"
+    placeholder="Escribe tu pregunta..."
+    autocomplete="off"
+  />
+  <button class="btn-chat" onclick="handleUserInput()">Enviar</button>
+
+  <script src="asistente.js"></script>
+  <script>
+    // Registrar service worker
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker
+          .register("service-worker.js")
+          .then((reg) => console.log("Service Worker registrado:", reg.scope))
+          .catch((err) => console.error("Error al registrar Service Worker:", err));
+      });
+    }
+
+    // Enviar con Enter
+    const input = document.getElementById("userInput");
+    input.addEventListener("keydown", function (event) {
+      if (event.key === "Enter") {
+        handleUserInput();
+      }
+    });
+  </script>
+</body>
+</html>
